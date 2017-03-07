@@ -22,6 +22,7 @@ defmodule Rumbl.ModelCase do
       import Ecto.Changeset
       import Ecto.Query
       import Rumbl.ModelCase
+      import Rumbl.TestHelpers
     end
   end
 
@@ -59,6 +60,11 @@ defmodule Rumbl.ModelCase do
   """
   def errors_on(struct, data) do
     struct.__struct__.changeset(struct, data)
+    |> errors_on_changeset()
+  end
+
+  def errors_on_changeset(changeset) do
+    changeset
     |> Ecto.Changeset.traverse_errors(&Rumbl.ErrorHelpers.translate_error/1)
     |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end

@@ -5,7 +5,6 @@ defmodule Rumbl.VideoController do
   plug :load_categories when action in ~w(new create edit update)a
 
   def index(conn, _params, user) do
-    IO.inspect user_videos(user)
     videos = Repo.all(user_videos(user))
     render(conn, "index.html", videos: videos)
   end
