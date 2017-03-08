@@ -8,4 +8,8 @@ defmodule Rumbl.UserView do
     |> String.split(" ")
     |> List.first
   end
+
+  def render("user.json", %{user: user}) do
+    %{id: user.id, username: user.username}
+  end
 end
